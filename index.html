@@ -1,0 +1,119 @@
+<html>
+  <title>Random Quote</title>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--<meta http-equiv="refresh" content="1" >-->
+
+  <style>
+  @import url(https://fonts.googleapis.com/css?family=Raleway:400,500);
+  h1{
+     font-family: 'Rock Salt', cursive;
+     text-align: center;
+     color: white;
+   }
+  .quote-box {
+  border-radius: 5px;
+  position: relative;
+  margin: 200px auto auto auto;
+  width: 600px;
+  height: 300px;
+  position: relative;
+  background-color: #fff;
+  padding: 10px;
+}
+
+  .new-quote {
+        background-color:#FB6964;
+        color: white;
+        padding: 8px;
+        border-radius: 5px;
+        cursor: pointer;
+        position: absolute;
+        margin-top: 230px;
+        margin-left: 440px;
+        font-size: 20px;
+		
+    }
+	.quote-box .quote-text {
+
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+    font-weight:100px;
+    position: absolute;
+    margin-top: 40px;
+    margin-left: 50px;
+	color :#FB6964;
+	}
+  .quote-box .quote-author {
+    font-size: 18px;
+    font-weight: 100px;
+    position: absolute;
+    margin-top : 180px;
+    margin-left: 450px;
+	color :#FB6964;
+
+  }
+  #random_quote
+  {
+    font-family: 'Raleway', sans-serif;
+    font-weight:600;
+  }
+  </style>
+
+  <script>
+  function randomQuote(){
+    var output = $.ajax({
+      url: 'https://andruxnet-random-famous-quotes.p.mashape.com/cat=famous',
+      type: 'GET', // The HTTP Method, can be GET POST PUT DELETE etc
+      data: {}, // Additional parameters here
+      dataType: 'json',
+      success: function(data) {
+       $("#text").html("<span id='text' class='lead text-center'>" +
+        data.quote +"</p>");
+      $("#author").html("<span id='author' class='lead text-center'>"+data.author+"</span>"); 
+
+       
+      },
+	  beforeSend: function(xhr) {
+        xhr.setRequestHeader("X-Mashape-Authorization", "c3Ylhc7ZXbmshY1lb0rYQRiRmLX9p1sJqiYjsnToJMCxt3XNhP"); // Enter here your Mashape key
+      }
+	 });
+}
+$(function() {
+        randomQuote();
+        var colors=['#C63D0F', '#3B3738', '#005A31', '#74AFAD' ,'#D9853B',' #67BCDB',' #FF9009', '#CBE32D' ,'#A8CD1B', '#7E8F7C','#16a085', '#27ae60', '#2c3e50', '#f39c12', '#e74c3c', '#9b59b6', '#FB6964', '#342224', "#472E32", "#BDBB99", "#77B1A9", "#73A857"];
+        $(".new-quote").click(function(){
+        randomQuote();
+        var randcolor =colors[Math.floor(Math.random()*colors.length)];
+        console.log(Math.floor(Math.random()*colors.length));
+
+        $('body').css('background-color', randcolor);
+        $('#text').css('color', randcolor);
+        $('#author').css('color', randcolor);
+        $('.new-quote').css('background-color', randcolor);
+        $('#quote').css('color', randcolor);
+      });
+    });
+
+  </script>
+  </head>
+
+<body bgcolor="#FB6964">
+    <h1>Random Quotes </h1>
+      <div class="quote-box">
+
+        <div class="quote-text">
+          <i id="quote" class="fa fa-quote-left"></i> &nbsp <span id="text"></span>
+       </div>
+
+        <div class="quote-author">
+          --&nbsp <span id="author"></span>
+        </div>
+
+        <button class="new-quote">New Quote</button>
+
+     </div>
+</body>
+</html>
